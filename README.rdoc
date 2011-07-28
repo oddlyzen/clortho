@@ -1,6 +1,6 @@
 = clortho
 
-Description goes here.
+The Keywordmaster (for MongoMapper)
 
 == Contributing to clortho
  

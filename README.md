@@ -1,4 +1,4 @@
-# clortho
+# Clortho
 
 ![Vince Clortho, The Keymaster](http://i51.tinypic.com/1685svm.jpg)
 

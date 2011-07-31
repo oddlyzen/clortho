@@ -8,7 +8,7 @@ module MongoMapper
       
       module ClassMethods
         
-        def search_on(*args)
+        def searchable(*args)
           args.each do |arg|
             key :"#{arg}_keywords", String
             key :"#{arg}_keywords_array", Array

@@ -13,10 +13,12 @@ class TestClortho < Test::Unit::TestCase
     save_posts
   end
   
-  should 'have a body_keywords field' do
+  should 'have a all searchable fields fields' do
     @posts.each do |post|
-      assert post.respond_to? :body_keywords
-      assert post.respond_to? :body_keywords_array
+      ['summary', 'body', 'title'].each do |word|
+        assert post.respond_to? :"#{word}_keywords"
+        assert post.respond_to? :"#{word}_keywords_array"
+      end
     end
   end
   

@@ -24,8 +24,3 @@ require 'models/post'
 
 class Test::Unit::TestCase
 end
-
-@lipsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus porttitor, ipsum a commodo aliquet, 
-           velit ligula porttitor eros, sit amet consequat purus massa sit amet quam. Aliquam tempus magna faucibus 
-           lacus ultricies rhoncus. In ut metus purus, at venenatis est. Donec vel elementum turpis. Nullam feugiat 
-           massa quis elit egestas."

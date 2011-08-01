@@ -4,10 +4,10 @@ class TestClortho < Test::Unit::TestCase
   def setup
     @posts = [
     (@fridge = Post.new( title: 'Is your refrigerator running? Better catch it',
-                                    body: @lipsum,
+                                    body: Post::LIPSUM,
                                     authors: ['Thomas Mann', 'Jim Byrd'])),
     (@colonial =    Post.new(  title: 'The Colonial: In Full Swing',
-                                    body: @lipsum,
+                                    body: Post::LIPSUM,
                                     authors: ['Rebecca Simmons']))
                 ]
     save_posts
@@ -29,6 +29,11 @@ class TestClortho < Test::Unit::TestCase
         assert !(post.send :"#{word}_keywords_array").nil?
       end
     end
+  end
+  
+  should 'have body_keywords equal to LIPSUM' do
+    assert_equal Post::LIPSUM, @colonial.body_keywords
+    assert_equal Post::LIPSUM, @fridge.body_keywords
   end
   
   private

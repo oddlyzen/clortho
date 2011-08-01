@@ -26,7 +26,7 @@ class TestClortho < Test::Unit::TestCase
   
   should 'have fields that never evaluate to nil unless supplied field is nil' do
     @posts.each do |post|
-      ['summary', 'body', 'title'].each do |word|
+      ['about', 'summary', 'body', 'title'].each do |word|
         assert !(post.send :"#{word}_keywords").nil?
         assert !(post.send :"#{word}_keywords_array").nil?
       end
@@ -43,8 +43,19 @@ class TestClortho < Test::Unit::TestCase
     assert_equal "Hello   world", @fridge.about_keywords
   end
   
-  should 'have a search_about_keywords_for field' do
-    assert_equal Post.search_about_keywords_for('lipsum'), true
+  should 'allow searches for specific keywords' do
+    assert_equal Post.search_body_keywords_for('ipsum').count, 2
+    assert_equal Post.search_about_keywords_for('ipsum').count, 0
+    assert_equal Post.search_title_keywords_for('refrigerator').count, 1
+  end
+  
+  # need to strip out punctuation in keywords
+  should 'strip out punctuation from array entries' do
+    # flunk
+  end
+  
+  def teardown
+    Post.destroy_all
   end
   
   private

@@ -43,6 +43,10 @@ class TestClortho < Test::Unit::TestCase
     assert_equal "Hello   world", @fridge.about_keywords
   end
   
+  should 'have a search_about_keywords_for field' do
+    assert_equal Post.search_about_keywords_for('lipsum'), true
+  end
+  
   private
   def save_posts
     @posts.each{ |post| post.save }

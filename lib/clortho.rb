@@ -25,6 +25,9 @@ module MongoMapper
             
             class_eval <<-CODE
               class << self
+                def search_#{arg}_keywords_for(keyword)
+                  true
+                end
               end
             CODE
           end

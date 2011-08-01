@@ -9,9 +9,16 @@ module MongoMapper
       module ClassMethods
         
         def searchable(*args)
+          options = args.extract_options!
+          
           args.each do |arg|
-            key :"#{arg}_keywords", String
-            key :"#{arg}_keywords_array", Array
+            key :"#{arg}_keywords", String, default: ""
+            key :"#{arg}_keywords_array", Array, default: []
+            
+            class_eval <<-CODE
+              class << self
+              end
+            CODE
           end
         end
         

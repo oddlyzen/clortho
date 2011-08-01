@@ -39,11 +39,22 @@ module MongoMapper
         def inject_default_keywords
           searchable_with_options.each do |field|
             if !self.send(field[0]).nil?
-              keywords = self.send(field[0])
+              keywords = !field[1][:exclude].nil? ? filter_on_exclusions(field, self.send(field[0])) : self.send(field[0])
               self.send("#{field[0].to_s}_keywords=".to_sym, keywords) if keywords
               self.send("#{field[0].to_s}_keywords_array=".to_sym, keywords.split) if keywords
             end
           end
+        end
+        
+        def filter_on_exclusions(field_and_options, keywords)
+          field, options = field_and_options
+          value = keywords
+          if options[:exclude]
+            options[:exclude].each do |exclusion|
+              value.gsub!(exclusion.to_s, '')
+            end
+          end
+          return value
         end
         
       end

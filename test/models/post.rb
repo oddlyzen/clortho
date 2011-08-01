@@ -6,9 +6,11 @@ class Post
   key :body,    String
   key :summary, String
   key :authors, Array
+  key :about,   String
   
   searchable :summary       # works with one...
-  searchable :body, :title  # or multiple arguments
+  searchable :body, :title  # ...or multiple arguments...
+  searchable :about, :exclude => [:a, :lipsum] # or options like :exclude.
   
   LIPSUM  = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus porttitor, ipsum a commodo aliquet, 
              velit ligula porttitor eros, sit amet consequat purus massa sit amet quam. Aliquam tempus magna faucibus 

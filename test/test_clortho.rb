@@ -5,9 +5,11 @@ class TestClortho < Test::Unit::TestCase
     @posts = [
     (@fridge = Post.new( title: 'Is your refrigerator running? Better catch it',
                                     body: Post::LIPSUM,
+                                    about: 'Hello a lipsum world',
                                     authors: ['Thomas Mann', 'Jim Byrd'])),
     (@colonial =    Post.new(  title: 'The Colonial: In Full Swing',
                                     body: Post::LIPSUM,
+                                    about: 'Hello a lipsum world',
                                     authors: ['Rebecca Simmons']))
                 ]
     save_posts
@@ -34,6 +36,11 @@ class TestClortho < Test::Unit::TestCase
   should 'have body_keywords equal to LIPSUM' do
     assert_equal Post::LIPSUM, @colonial.body_keywords
     assert_equal Post::LIPSUM, @fridge.body_keywords
+  end
+  
+  should 'have about_keywords equal to "Hello   World"' do
+    assert_equal "Hello   world", @colonial.about_keywords
+    assert_equal "Hello   world", @fridge.about_keywords
   end
   
   private

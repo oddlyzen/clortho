@@ -1,6 +1,5 @@
 module MongoMapper
   module Plugins
-    autoload :Clortho, 'clortho'
     
     module Clortho
       extend ActiveSupport::Concern
@@ -14,10 +13,10 @@ module MongoMapper
       
       module ExclusionConstants
         # Helper verbs, sometimes referred to as "forms of the verb (to) 'be'", usually offer no added meaning
-        VERBS       = [:have, :has, :had, :do, :does, :did, :be, :am, :is, :are, :was, :were, :having, 
-                       :been, :can, :could, :shall, :should, :will, :would, :may, :might, :must, :being]
+        VERBS       = %w(have has had do does did be am is are was were having
+                         been can could shall should will would may might must being)
         # Article adjectives are normally fluff and offer no additional context or meaning
-        ADJECTIVES  = [:a, :an, :the]
+        ADJECTIVES  = %w(a an the)
       end
       
       module ClassMethods
@@ -71,13 +70,10 @@ module MongoMapper
                 keywords.gsub!(exclusion.to_s, '')
               elsif exclusion.is_a? Symbol
                 klass = self.class
-                if exclusion == :adjectives
-                  Clortho::ExclusionConstants::ADJECTIVES.each do |adj|
-                    keywords.gsub!(adj.to_s, '')
-                  end
-                elsif exclusion == :verbs
-                  Clortho::ExclusionConstants::VERBS.each do |v|
-                    keywords.gsub!(v.to_s, '')
+                ex = exclusion.to_s.upcase.to_sym
+                if Clortho::ExclusionConstants::const_get(ex)
+                  Clortho::ExclusionConstants::const_get(ex).each do |e|
+                    keywords.gsub!(e, '')
                   end
                 end
               end

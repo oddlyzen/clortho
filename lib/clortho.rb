@@ -36,7 +36,7 @@ module MongoMapper
                 def search_#{arg}_keywords_for(*keywords)
                   records = []
                   keywords.each do |word|
-                    records << self.all.select{ |record| record[:'#{arg}_keywords_array'].include?(word) }
+                    records << self.all.select{ |record| record[:'#{arg}_keywords_array'].include?(word.downcase) }
                   end
                   records.flatten.uniq
                 end
@@ -55,6 +55,7 @@ module MongoMapper
           searchable_with_options.each do |field|
             if !self.send(field[0]).nil?
               keywords = !field[1][:exclude].nil? ? filter_on_exclusions(field, self.send(field[0])) : self.send(field[0])
+              keywords = filter_and_normalize(keywords)
               self.send("#{field[0].to_s}_keywords=".to_sym, keywords) if keywords
               self.send("#{field[0].to_s}_keywords_array=".to_sym, keywords.split.each{ |kw| kw.downcase }) if keywords
             end
@@ -84,8 +85,16 @@ module MongoMapper
           end
           # strip punctuation and extra spaces
           unless keywords.nil?
-            keywords.gsub(/^A-Za-z0-9\s/, ' ').strip.gsub(/\s+/, ' ')
+            filter_out_punctuation(keywords)
           end
+        end
+        
+        def filter_out_punctuation(text)
+          text.gsub(/\b\W/, ' ').strip.gsub(/\s+/, ' ')
+        end
+        
+        def filter_and_normalize(text)
+          filter_out_punctuation(text).downcase
         end
         
       end

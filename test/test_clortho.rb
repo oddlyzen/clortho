@@ -2,6 +2,7 @@ require 'helper'
 
 class TestClortho < Test::Unit::TestCase
   def setup
+    @fields = ['about', 'summary', 'body', 'title']
     @posts = [
     (@fridge = Post.new( title: 'Is your refrigerator running? Better catch it',
                                     body: Post::LIPSUM,
@@ -17,7 +18,7 @@ class TestClortho < Test::Unit::TestCase
   
   should 'have a all searchable fields, both as a string and array' do
     @posts.each do |post|
-      ['summary', 'body', 'title'].each do |word|
+      @fields.each do |word|
         assert post.respond_to? :"#{word}_keywords"
         assert post.respond_to? :"#{word}_keywords_array"
       end
@@ -26,7 +27,7 @@ class TestClortho < Test::Unit::TestCase
   
   should 'have fields that never evaluate to nil unless supplied field is nil' do
     @posts.each do |post|
-      ['about', 'summary', 'body', 'title'].each do |word|
+      @fields.each do |word|
         assert !(post.send :"#{word}_keywords").nil?
         assert !(post.send :"#{word}_keywords_array").nil?
       end
@@ -34,13 +35,14 @@ class TestClortho < Test::Unit::TestCase
   end
   
   should 'have body_keywords equal to LIPSUM' do
-    assert_equal Post::LIPSUM, @colonial.body_keywords
-    assert_equal Post::LIPSUM, @fridge.body_keywords
+    stripsum = Post::LIPSUM.downcase.gsub(/\b\W/, ' ').strip.gsub(/\s+/, ' ')
+    assert_equal stripsum, @colonial.body_keywords
+    assert_equal stripsum, @fridge.body_keywords
   end
   
   should 'have about_keywords equal to "Hello world"' do
-    assert_equal "Hello world", @colonial.about_keywords
-    assert_equal "Hello world", @fridge.about_keywords
+    assert_equal "hello world", @colonial.about_keywords
+    assert_equal "hello world", @fridge.about_keywords
   end
   
   should 'allow searches for specific keywords' do
@@ -68,6 +70,18 @@ class TestClortho < Test::Unit::TestCase
     assert true
   end
   
+  should 'allow searching for multiple keywords' do
+    assert_equal Post.search_body_keywords_for('ipsum', 'sit').count, 2
+    assert_equal Post.search_about_keywords_for('ipsum', 'sit').count, 0
+    assert_equal Post.search_title_keywords_for('refrigerator', 'Colonial').count, 2
+  end
+  
+  should 'allow case-insensitive searching for keywords' do
+    assert_not_nil Post.search_title_keywords_for('ReFrIdGeRaToR', 'ColoniaL').count, 2
+    assert_equal Post.search_about_keywords_for('IpSuM', 'SIT').count, 0
+    assert_equal Post.search_body_keywords_for('ipsUM', 'sIT').count, 2
+  end
+  
   def teardown
     Post.destroy_all
   end
@@ -76,5 +90,4 @@ class TestClortho < Test::Unit::TestCase
   def save_posts
     @posts.each{ |post| post.save }
   end
-  
 end

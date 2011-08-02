@@ -77,9 +77,14 @@ class TestClortho < Test::Unit::TestCase
   end
   
   should 'allow case-insensitive searching for keywords' do
-    assert_not_nil Post.search_title_keywords_for('ReFrIdGeRaToR', 'ColoniaL').count, 2
+    assert_equal Post.search_title_keywords_for('ReFrIgErAtOr', 'ColoniaL').count, 2
     assert_equal Post.search_about_keywords_for('IpSuM', 'SIT').count, 0
     assert_equal Post.search_body_keywords_for('ipsUM', 'sIT').count, 2
+  end
+  
+  should 'strip out -- from between two words (i.e., word--again)' do
+    assert @fridge.body_keywords !=~ /\-\-/
+    assert @colonial.body_keywords !=~ /\-\-/
   end
   
   def teardown

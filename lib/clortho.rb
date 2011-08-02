@@ -33,8 +33,12 @@ module MongoMapper
             
             class_eval <<-CODE
               class << self
-                def search_#{arg}_keywords_for(keyword)
-                  self.all.select{ |record| record[:'#{arg}_keywords_array'].include?(keyword) }
+                def search_#{arg}_keywords_for(*keywords)
+                  records = []
+                  keywords.each do |word|
+                    records << self.all.select{ |record| record[:'#{arg}_keywords_array'].include?(word) }
+                  end
+                  records.flatten.uniq
                 end
               end
             CODE

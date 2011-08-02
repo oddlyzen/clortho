@@ -9,6 +9,7 @@ module MongoMapper
         write_inheritable_attribute :searchable_with_options, []
         set_callback :create, :before, :inject_default_keywords
         extend ClassMethods
+        include InstanceMethods
       end
       
       module ExclusionConstants

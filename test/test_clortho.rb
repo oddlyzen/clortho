@@ -5,11 +5,11 @@ class TestClortho < Test::Unit::TestCase
     @posts = [
     (@fridge = Post.new( title: 'Is your refrigerator running? Better catch it',
                                     body: Post::LIPSUM,
-                                    about: 'Hello a lipsum world',
+                                    about: 'Hello were having the lipsum a world',
                                     authors: ['Thomas Mann', 'Jim Byrd'])),
     (@colonial =    Post.new(  title: 'The Colonial: In Full Swing',
                                     body: Post::LIPSUM,
-                                    about: 'Hello a lipsum world',
+                                    about: 'Hello were having the lipsum a world',
                                     authors: ['Rebecca Simmons']))
                 ]
     save_posts
@@ -38,9 +38,9 @@ class TestClortho < Test::Unit::TestCase
     assert_equal Post::LIPSUM, @fridge.body_keywords
   end
   
-  should 'have about_keywords equal to "Hello   World"' do
-    assert_equal "Hello   world", @colonial.about_keywords
-    assert_equal "Hello   world", @fridge.about_keywords
+  should 'have about_keywords equal to "Hello world"' do
+    assert_equal "Hello world", @colonial.about_keywords
+    assert_equal "Hello world", @fridge.about_keywords
   end
   
   should 'allow searches for specific keywords' do
@@ -51,7 +51,21 @@ class TestClortho < Test::Unit::TestCase
   
   # need to strip out punctuation in keywords
   should 'strip out punctuation from array entries' do
-    # flunk
+    @colonial.body_keywords_array.each do |keyword|
+      flunk if keyword =~ /^A-Za-z0-9\s/
+    end
+    @fridge.body_keywords_array.each do |keyword|
+      flunk if keyword =~ /^A-Za-z0-9\s/
+    end
+    assert true
+  end
+  
+  should 'strip out helper verbs and article adjectives from the about keywords' do
+    MongoMapper::Plugins::Clortho::ExclusionConstants::VERBS.each do |v|
+      flunk if /v.to_s/ =~ @colonial.about_keywords
+      flunk if /v.to_s/ =~ @fridge.about_keywords
+    end
+    assert true
   end
   
   def teardown

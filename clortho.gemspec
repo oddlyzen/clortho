@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
     "README.md",
     "Rakefile",
     "VERSION",
+    "clortho.gemspec",
     "lib/clortho.rb",
     "test/helper.rb",
     "test/models/post.rb",

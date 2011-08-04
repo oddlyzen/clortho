@@ -8,6 +8,7 @@ module MongoMapper
         class_inheritable_accessor  :searchable_with_options
         write_inheritable_attribute :searchable_with_options, []
         set_callback :create, :before, :inject_default_keywords
+        set_callback :update, :before, :inject_default_keywords
         extend ClassMethods
         include InstanceMethods
       end
@@ -17,7 +18,7 @@ module MongoMapper
         VERBS       = %w(have has had do does did be am is are was were having
                          been can could shall should will would may might must being)
         # Article adjectives are normally fluff and offer no additional context or meaning
-        ADJECTIVES  = %w(a an the)
+        ADJECTIVES  = %w(an a the)
       end
       
       module ClassMethods
@@ -48,14 +49,12 @@ module MongoMapper
       end
       
       module InstanceMethods
-        
-        @defaults_set = false
-        
+                
         def inject_default_keywords
           searchable_with_options.each do |field|
             if !self.send(field[0]).nil?
-              keywords = !field[1][:exclude].nil? ? filter_on_exclusions(field, self.send(field[0])) : self.send(field[0])
-              keywords = filter_and_normalize(keywords)
+              text = self.send(field[0]).to_s
+              keywords = filter_and_normalize(!field[1][:exclude].nil? ? filter_on_exclusions(field, filter_and_normalize(text)) : text)
               self.send("#{field[0].to_s}_keywords=".to_sym, keywords) if keywords
               self.send("#{field[0].to_s}_keywords_array=".to_sym, keywords.split.each{ |kw| kw.downcase }) if keywords
             end
@@ -68,13 +67,13 @@ module MongoMapper
             
             options[:exclude].each do |exclusion|
               if exclusion.is_a? String
-                keywords.gsub!(exclusion.to_s, '')
+                keywords.gsub!(/(\b#{exclusion}\b)/, '')
               elsif exclusion.is_a? Symbol
                 klass = self.class
                 ex = exclusion.to_s.upcase.to_sym
                 if Clortho::ExclusionConstants::const_get(ex)
                   Clortho::ExclusionConstants::const_get(ex).each do |e|
-                    keywords.gsub!(e, '')
+                    keywords.gsub!(/(\b#{e}\b)/, '')
                   end
                 end
               end

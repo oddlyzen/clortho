@@ -87,6 +87,15 @@ class TestClortho < Test::Unit::TestCase
     assert @colonial.body_keywords !=~ /\-\-/
   end
   
+  should 're-inject keywords on update' do
+    @fridge.about = 'Everyone will Wang Chung tonight.'
+    @colonial.about = 'The ape does bite a Man!'
+    @fridge.save
+    @colonial.save
+    assert @fridge.about_keywords == 'everyone wang chung tonight'
+    assert @colonial.about_keywords == 'ape bite man'
+  end
+  
   def teardown
     Post.destroy_all
   end

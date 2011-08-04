@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{clortho}
-  s.version = "0.0.1"
+  s.version = "0.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Mark Coates"]
-  s.date = %q{2011-08-02}
+  s.authors = [%q{Mark Coates}]
+  s.date = %q{2011-08-04}
   s.description = %q{Clortho makes keyword and full-text search a breeze for MongoMapper users.}
   s.email = %q{mark.coates@gmail.com}
   s.extra_rdoc_files = [
@@ -31,9 +31,9 @@ Gem::Specification.new do |s|
     "test/test_clortho.rb"
   ]
   s.homepage = %q{http://github.com/oddlyzen/clortho}
-  s.licenses = ["MIT"]
-  s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.6.2}
+  s.licenses = [%q{MIT}]
+  s.require_paths = [%q{lib}]
+  s.rubygems_version = %q{1.8.6}
   s.summary = %q{Clortho: the Key(word) Master adds search to your MongoMapper classes.}
 
   if s.respond_to? :specification_version then

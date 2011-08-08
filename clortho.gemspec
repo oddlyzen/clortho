@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{clortho}
-  s.version = "0.0.2"
+  s.version = "0.0.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{Mark Coates}]
-  s.date = %q{2011-08-04}
+  s.date = %q{2011-08-08}
   s.description = %q{Clortho makes keyword and full-text search a breeze for MongoMapper users.}
   s.email = %q{mark.coates@gmail.com}
   s.extra_rdoc_files = [

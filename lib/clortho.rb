@@ -5,8 +5,8 @@ module MongoMapper
       extend ActiveSupport::Concern
       
       included do
-        class_inheritable_accessor  :searchable_with_options
-        write_inheritable_attribute :searchable_with_options, []
+        class_attribute  :searchable_with_options
+        self.searchable_with_options = []
         set_callback :create, :before, :inject_default_keywords
         set_callback :update, :before, :inject_default_keywords
         extend ClassMethods

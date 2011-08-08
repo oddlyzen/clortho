@@ -97,7 +97,6 @@ class TestClortho < Test::Unit::TestCase
   end
   
   should 'have a class-level variable called #searchable_with_options' do
-    pry Post
     assert !Post.searchable_with_options.nil?
   end
   

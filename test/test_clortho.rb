@@ -96,6 +96,11 @@ class TestClortho < Test::Unit::TestCase
     assert @colonial.about_keywords == 'ape bite man'
   end
   
+  should 'have a class-level variable called #searchable_with_options' do
+    pry Post
+    assert !Post.searchable_with_options.nil?
+  end
+  
   def teardown
     Post.destroy_all
   end

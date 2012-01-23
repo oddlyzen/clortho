@@ -27,8 +27,8 @@ module MongoMapper
           options = args.extract_options!
           
           args.each do |arg|
-            key :"#{arg}_keywords", String, default: ""
-            key :"#{arg}_keywords_array", Array, default: []
+            key :"#{arg}_keywords", String, :default => ""
+            key :"#{arg}_keywords_array", Array, :default => []
             
             searchable_with_options << [arg.to_sym, options]
             

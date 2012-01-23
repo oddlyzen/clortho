@@ -4,14 +4,14 @@ class TestClortho < Test::Unit::TestCase
   def setup
     @fields = ['about', 'summary', 'body', 'title']
     @posts = [
-    (@fridge = Post.new( title: 'Is your refrigerator running? Better catch it',
-                                    body: Post::LIPSUM,
-                                    about: 'Hello were having the lipsum a world',
-                                    authors: ['Thomas Mann', 'Jim Byrd'])),
-    (@colonial =    Post.new(  title: 'The Colonial: In Full Swing',
-                                    body: Post::LIPSUM,
-                                    about: 'Hello were having the lipsum a world',
-                                    authors: ['Rebecca Simmons']))
+    (@fridge = Post.new(:title => 'Is your refrigerator running? Better catch it',
+                                    :body => Post::LIPSUM,
+                                    :about => 'Hello were having the lipsum a world',
+                                    :authors => ['Thomas Mann', 'Jim Byrd'])),
+    (@colonial =    Post.new(:title => 'The Colonial: In Full Swing',
+                                    :body => Post::LIPSUM,
+                                    :about => 'Hello were having the lipsum a world',
+                                    :authors => ['Rebecca Simmons']))
                 ]
     save_posts
   end
@@ -51,7 +51,6 @@ class TestClortho < Test::Unit::TestCase
     assert_equal Post.search_title_keywords_for('refrigerator').count, 1
   end
   
-  # need to strip out punctuation in keywords
   should 'strip out punctuation from array entries' do
     @colonial.body_keywords_array.each do |keyword|
       flunk if keyword =~ /^A-Za-z0-9\s/

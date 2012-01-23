@@ -16,4 +16,4 @@
 
 ## Copyright
 
-Copyright (c) 2011 Mark Coates. Released under the MIT license. See LICENSE.txt for further details.
+Copyright (c) 2011 BitPimpin' LLC. Released under the MIT license. See LICENSE.txt for further details.

@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.version = "0.0.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = [%q{Mark Coates}]
+  s.authors = [%q{BitPimpin' LLC}]
   s.date = %q{2011-08-08}
   s.description = %q{Clortho makes keyword and full-text search a breeze for MongoMapper users.}
   s.email = %q{mark.coates@gmail.com}

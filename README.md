@@ -1,4 +1,4 @@
-# Clortho [![Build Status](https://secure.travis-ci.org/oddlyzen/clortho.png)](http://travis-ci.org/oddlyzen/clortho)
+# Clortho [![Build Status](https://secure.travis-ci.org/oddlyzen/clortho.png)](http://travis-ci.org/oddlyzen/clortho) [![Gem Version](https://badge.fury.io/rb/clortho.png)](http://badge.fury.io/rb/clortho)
 
 ![Vince Clortho, The Keymaster](http://i51.tinypic.com/1685svm.jpg)
 

@@ -1,8 +1,12 @@
-# Clortho [![Build Status](https://secure.travis-ci.org/oddlyzen/clortho.png)](http://travis-ci.org/oddlyzen/clortho) [![Gem Version](https://badge.fury.io/rb/clortho.png)](http://badge.fury.io/rb/clortho)
+# Clortho [![Gem Version](https://badge.fury.io/rb/clortho.png)](http://badge.fury.io/rb/clortho)
 
 ![Vince Clortho, The Keymaster](http://i51.tinypic.com/1685svm.jpg)
 
 **The Keywordmaster** (for MongoMapper)
+
+See the [GitHub Page](http://oddlyzen.github.io/clortho/ "More information about Clortho") for more information about the gem and installation.
+
+Check out [the test suite](/test/test_clortho.rb "Go green or die!") (and a [sample model](/test/models/post.rb "A Clortho-searchable Post")) for usage information.
 
 ## Contributing to *clortho*
  
@@ -16,4 +20,4 @@
 
 ## Copyright
 
-Copyright (c) 2011 BitPimpin' LLC. Released under the MIT license. See LICENSE.txt for further details.
+Copyright (c) 2013, Mark Coates (@oddlyzen). Released under the MIT license. See [LICENSE.txt](/LICENSE.txt "MIT License") for further details.

@@ -2,7 +2,7 @@ GEM
   remote: http://rubygems.org/
   specs:
     activemodel (3.0.9)
-      activesupport (= 3.0.9)
+      activesupport (~> 4.1.11)
       builder (~> 2.1.2)
       i18n (~> 0.5.0)
     activesupport (3.0.9)
